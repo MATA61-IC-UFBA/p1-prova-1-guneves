@@ -10,7 +10,7 @@ void yyerror(const char *msg);
 
 %%
 
-"//".* {}
+"//".*                  {}
 [ \t\r]+                {}
 \n+                     { return EOL; }
 
