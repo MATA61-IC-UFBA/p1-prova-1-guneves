@@ -10,6 +10,12 @@ void yyerror(const char *msg);
 %}
 
 %token ERROR
+%token IDENT NUM STRING
+%token PRINT CONCAT LENGTH
+%token EQUAL OPEN CLOSE COMMA
+
+%left '+' '-'
+%left '*' '/'
 
 %start program
 
@@ -26,13 +32,27 @@ stmt_list
 ;
 
 stmt
-: IDENT ASSIGN expr
-| PRINT LPAREN exprlist RPAREN
+: IDENT EQUAL expr
+| PRINT OPEN exprlist CLOSE
 | expr
 ;
 
+exprlist
+: expr
+| exprlist COMMA expr
+;
+
 expr
-/* completar */
+: expr '+' expr
+| expr '-' expr
+| expr '*' expr
+| expr '/' expr
+| OPEN expr CLOSE
+| NUM
+| STRING
+| IDENT
+| CONCAT OPEN exprlist CLOSE
+| LENGTH OPEN expr CLOSE
+;
 
 %%
-
