@@ -10,20 +10,21 @@ void yyerror(const char *msg);
 
 %%
 
-"//".*                  {}
-[ \t\r]+                {}
-\n+                     { return EOL; }
+"//".*                  { }
+[ \t\r\n]+              { }
 
 "print"                 { return PRINT; }
 "concat"                { return CONCAT; }
 "length"                { return LENGTH; }
 
 [a-zA-Z_][a-zA-Z0-9_]*  { return IDENT; }
-[0-9]+(\.[0-9]+)?       { return NUM; }
+[0-9]+                  { return NUM; }
+
 "+"                     { return '+'; }
 "-"                     { return '-'; }
 "*"                     { return '*'; }
 "/"                     { return '/'; }
+
 "("                     { return OPEN; }
 ")"                     { return CLOSE; }
 
@@ -31,7 +32,6 @@ void yyerror(const char *msg);
 
 "="                     { return EQUAL; }
 ","                     { return COMMA; }
-
 
 .                       { return ERROR; }
 
