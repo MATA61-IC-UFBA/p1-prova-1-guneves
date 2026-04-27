@@ -11,7 +11,8 @@ void yyerror(const char *msg);
 %%
 
 "//".* {}
-[ \t\r\n]+              {}
+[ \t\r]+                {}
+\n+                     { return EOL; }
 
 "print"                 { return PRINT; }
 "concat"                { return CONCAT; }
